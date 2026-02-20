@@ -1,0 +1,131 @@
+instalar laravel
+docker run --rm -v ${PWD}/backend:/app composer create-project laravel/laravel .
+
+
+installar react 
+docker run --rm -v ${PWD}/backend:/app -w /app composer bash
+
+Instala React + Inertia + Breeze directamente en Windows (ya que Composer funciona local):
+
+composer require laravel/breeze --dev
+php artisan breeze:install react
+npm install
+npm run dev
+php artisan migrate
+
+
+
+run docker 
+docker run --rm -v ${PWD}/backend:/app -w /app php:8.4-cli bash
+
+
+
+Parte	Qué hace
+docker run	Le dice a Docker que ejecute un contenedor nuevo
+--rm	Borra automáticamente el contenedor cuando termina
+-v ${PWD}/backend:/app	Monta la carpeta backend de tu máquina Windows dentro del contenedor en la ruta /app
+-w /app	Cambia el directorio de trabajo dentro del contenedor a /app
+php:8.4-cli	Imagen de Docker que contiene PHP 8.4 CLI
+bash	Ejecuta la shell bash dentro del contenedor
+
+
+Option 1 — Install Composer inside PHP container manually
+
+Run an interactive bash container:
+
+docker run -it --rm -v ${PWD}/backend:/app -w /app php:8.4-cli bash
+
+
+Inside the container, install Composer:
+
+apt update && apt install -y unzip curl git
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+composer -V
+
+
+Then you can create Laravel:
+
+composer create-project laravel/laravel .
+
+
+Pasos después del cambio
+
+Si tu contenedor está corriendo, primero haz:
+
+docker-compose down
+
+
+Luego levanta todo con PHP 8.4:
+
+docker-compose up -d
+
+
+Entra al contenedor de Laravel y corre migraciones:
+
+docker exec -it laravel_app bash
+php artisan migrate
+
+
+Abre en el navegador:
+
+http://localhost:8000
+
+
+
+# Framework folders inside storage
+mkdir -Force storage\framework\cache
+mkdir -Force storage\framework\sessions
+mkdir -Force storage\framework\views
+
+# Cache folder for bootstrap
+mkdir -Force bootstrap\cache
+
+
+Si quieres que Docker use PHP-FPM + Nginx con composer y artisan dentro del contenedor sin problemas de permisos:
+
+docker exec -it laravel_app bash
+composer install
+php artisan key:generate
+
+
+
+Entrar al contenedor Laravel
+docker exec -it laravel_app bash
+
+
+Una vez dentro, puedes hacer tareas de Laravel y PHP.
+
+2️⃣ Asegurar permisos correctos de Laravel
+
+Dentro del contenedor:
+
+# Carpeta storage
+chown -R www-data:www-data /app/storage
+chown -R www-data:www-data /app/storage /app/bootstrap/cache
+
+chmod -R 775 /app/storage
+
+# Carpeta bootstrap/cache
+chown -R www-data:www-data /app/bootstrap/cache
+chmod -R 775 /app/bootstrap/cache
+
+https://inertiajs.com/#
+
+
+// create schema and seeders to cars
+//https://app.dev.aws.dinggo.com.au/phptest/cars
+"cars": [
+    {
+      "licensePlate": "QWE12E",
+      "licenseState": "NSW",
+      "vin": "5TDBW5G16BS451467",
+      "year": "2002",
+      "colour": "Yellow",
+      "make": "Mitsubishi",
+      "model": "Eclipse"
+    },]
+
+    docker exec -it <container_name> php artisan make:model Cars
+
+    or inside the container onlye run php artisan make:model Cars
