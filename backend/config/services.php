@@ -38,8 +38,9 @@ return [
         'base_url' => env('DINGGO_API_URL'),
         'cars_endpoint' => env('DINGGO_API_CARS_ENDPOINT'),
         'quotes_endpoint' => env('DINGGO_API_QUOTES_ENDPOINT'),
-        'username' => env('API_USERNAME'),
-        'key' => env('API_KEY'),
+        'username' => env('DINGGO_API_USERNAME'),
+        'key' => env('DINGGO_API_KEY'),
     ], // Add your Dinggo API credentials
 
 ];
+
