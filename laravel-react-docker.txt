@@ -141,3 +141,7 @@ https://inertiajs.com/#
 
    docker exec -it laravel_app php artisan migrate
    docker exec -it laravel_app php artisan migrate:fresh --seed 
+
+
+    Create a dedicated Service app/Services/CarsService.php:
+   docker exec -it laravel_app php artisan make:service CarsService

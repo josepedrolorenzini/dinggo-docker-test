@@ -1,3 +1,4 @@
+import { Head } from '@inertiajs/react';
 import { useEffect } from 'react';
 
 export default function Welcome({ cars }) {
@@ -6,9 +7,13 @@ export default function Welcome({ cars }) {
         console.log("Cars data:", cars);
     }, []);
 
-    return <div>
-        Check console
+    return (
+        <>
+            <Head title="Cars" />
+            <div>
+                Check console
 
-            <pre>{JSON.stringify(cars, null, 2)}</pre>
-    </div>;
+                <pre>{JSON.stringify(cars, null, 2)}</pre>
+            </div>
+        </>)
 }

@@ -18,6 +18,7 @@ use Inertia\Inertia;
 Route::get("/", [PostController::class, "index"])->name("home");
 Route::get("/cars", [PostController::class, "storeCars"])->name("cars.index");
 Route::post("/postscars", [PostController::class, "storeCars"])->name("cars.store");
+Route::get("/showcars", [PostController::class, "showCars"])->name("cars.show");
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -29,4 +30,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

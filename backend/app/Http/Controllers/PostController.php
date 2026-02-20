@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cars;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -49,8 +50,12 @@ class PostController extends Controller
      */
     public function storeCars(Request $request)
     {
+        // car Model
+        $car = new Cars();
         //get post cars from request
         $client = new Client();
+
+        // Make a POST request to the Dinggo API with the required credentials
         $response = $client->post(
             config('services.dinggo.url'),
             [
@@ -61,28 +66,65 @@ class PostController extends Controller
             ]
         );
 
-        if (!$response->getStatusCode() == 200) {
+        // Check if the response is successful
+        if ($response->getStatusCode() !== 200) {
             return response()->json([
                 'success' => false,
                 'message' => 'API request failed'
             ]);
         }
 
-        $data = json_decode($response->getBody()->getContents(), true);
+        // Get the response body and decode the JSON data
+        $body = $response->getBody()->getContents();
+        // dd($body);
+
+        // Decode the JSON response into an associative array
+        $data = json_decode($body, true);
         // dd($data);
-        return Inertia::render("Cars", [
+
+        // Extract the 'cars' data from the response
+        $cars = $data['cars'] ?? [];
+
+        //insert post cars data into cars database table
+        foreach ($cars as $carData) {
+            Cars::firstOrCreate(
+                ['vin' => $carData['vin']],
+                [
+                    'colour' => $carData['colour'] ?? null,
+                    'license_plate' => $carData['license_plate'] ?? null,
+                    'license_state' => $carData['license_state'] ?? null,
+                    'make' => $carData['make'] ?? null,
+                    'model' => $carData['model'] ?? null,
+                    'year' => $carData['year'] ?? null
+                ]
+            );
+        }
+
+        dd($cars);
+        // redirect to dinggo jsx
+        return redirect()->route('cars.show');
+
+         /*
+         return Inertia::render("Cars", [
             'cars' => $data
         ]);
 
         //      return response()->json($data); // for testing
+        */
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Post $post)
+    public function showCars()
     {
-        //
+        //instance of car model
+        $car = new Cars();
+
+        //render the cars data to the view
+        return Inertia::render("DinggoCars", [
+            'cars' => $car::all()
+        ]);
     }
 
     /**
