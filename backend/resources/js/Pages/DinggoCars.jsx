@@ -3,11 +3,22 @@ import React from 'react';
 
 const containerStylo = {
     display: 'grid',
-    // This creates 3 columns of equal width
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    // Mobile: 1 column, Tablet: 2 columns, Desktop: 3-4 columns
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     gap: '15px',
     padding: '20px',
-    color: '#333',
+    color: '#000',
+
+    // Media queries for finer control
+    '@media (max-width: 768px)': {
+        gridTemplateColumns: '1fr',
+    },
+    '@media (min-width: 769px) and (max-width: 1024px)': {
+        gridTemplateColumns: 'repeat(2, 1fr)',
+    },
+    '@media (min-width: 1025px)': {
+        gridTemplateColumns: 'repeat(3, 1fr)',
+    },
 };
 const boxStylo = {
     border: '1px solid #ccc',
@@ -16,7 +27,8 @@ const boxStylo = {
     backgroundColor: '#f9f9f9',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    color: '#000 !important',
 };
 
 function DinggoCars({ cars }) {
