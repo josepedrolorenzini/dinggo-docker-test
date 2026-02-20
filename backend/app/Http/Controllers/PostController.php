@@ -12,6 +12,7 @@ use GuzzleHttp\Client;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use function GuzzleHttp\json_decode;
 
 class PostController extends Controller
 {
@@ -40,9 +41,54 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function postCars()
     {
-        //
+        //only post cars data to the database without rendering the view
+        $client = new Client();
+        // Make a POST request to the Dinggo API with the required credentials
+        $response = $client->post(config('services.dinggo.url'), [
+            'json' => [
+                'username' => config('services.dinggo.username'),
+                "key" => config('services.dinggo.key'),
+            ]
+        ]);
+        // Check if the response is successful
+        if ($response->getStatusCode() !== 200) {
+            return response()->json([
+                'success' => false,
+                'message' => 'API request failed'
+            ]);
+        }
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        $cars = $data['cars'] ?? [];
+
+        if (empty($cars)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No cars data returned from API'
+            ]);
+        }
+        ;
+
+        //insert post cars data into cars database table
+        foreach ($cars as $carData) {
+            Cars::firstOrCreate(
+                ['vin' => $carData['vin']],
+                [
+                    'colour' => $carData['colour'] ?? null,
+                    'license_plate' => $carData['license_plate'] ?? null,
+                    'license_state' => $carData['license_state'] ?? null,
+                    'make' => $carData['make'] ?? null,
+                    'model' => $carData['model'] ?? null,
+                    'year' => $carData['year'] ?? null
+                ]
+            );
+        }
+        //dd($cars);
+        // redirect to dinggo jsx
+        return redirect()->route('cars.show');
+
     }
 
     /**
@@ -100,17 +146,17 @@ class PostController extends Controller
             );
         }
 
-        dd($cars);
+        //  dd($cars);
         // redirect to dinggo jsx
         return redirect()->route('cars.show');
 
-         /*
-         return Inertia::render("Cars", [
-            'cars' => $data
-        ]);
+        /*
+        return Inertia::render("Cars", [
+           'cars' => $data
+       ]);
 
-        //      return response()->json($data); // for testing
-        */
+       //      return response()->json($data); // for testing
+       */
     }
 
     /**

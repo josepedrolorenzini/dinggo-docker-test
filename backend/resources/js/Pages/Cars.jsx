@@ -10,10 +10,12 @@ export default function Welcome({ cars }) {
     return (
         <>
             <Head title="Cars" />
-            <div>
-                Check console
+            <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+                <div>
+                    Check console
 
-                <pre>{JSON.stringify(cars, null, 2)}</pre>
+                    <pre>{JSON.stringify(cars, null, 2)}</pre>
+                </div>
             </div>
         </>)
 }
