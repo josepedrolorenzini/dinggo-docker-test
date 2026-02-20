@@ -145,3 +145,8 @@ https://inertiajs.com/#
 
     Create a dedicated Service app/Services/CarsService.php:
    docker exec -it laravel_app php artisan make:service CarsService
+
+
+php artisan config:clear -  docker compose exec app php artisan config:clear 
+>> php artisan cache:clear - docker-compose exec app php artisan cache:clear
+>> php artisan view:clear - docker-compose exec app php artisan view:clear 
