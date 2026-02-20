@@ -33,6 +33,11 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
-    ],
+    ], // Add your Dinggo API credentials
+    'dinggo' => [
+        'url' => env('API_URL'),
+        'username' => env('API_USERNAME'),
+        'key' => env('API_KEY'),
+    ], // Add your Dinggo API credentials 
 
 ];

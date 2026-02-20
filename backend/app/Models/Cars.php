@@ -12,4 +12,14 @@ class Cars extends Model
      * @var string
      */
     protected $table = 'Cars';
+
+    protected $fillable = [
+        'colour',
+        'license_plate',
+        'license_state',
+        'make',
+        'model',
+        'vin',
+        'year',
+    ];
 }

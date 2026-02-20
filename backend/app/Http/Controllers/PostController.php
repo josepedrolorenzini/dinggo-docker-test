@@ -21,18 +21,18 @@ class PostController extends Controller
     {
         //// fetching joseplorenzini.com/api/posts
         $client = new Client();
-       // $response = $client->get('http://joseplorenzini.com/api/posts');
+        // $response = $client->get('http://joseplorenzini.com/api/posts');
         $response = $client->get('https://app.dev.aws.dinggo.com.au/phptest/test');
         $posts = json_decode($response->getBody(), true);
         $dataPosts = response()->json($posts);
 
         return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-        'dataPosts' => $dataPosts,
-    ]);
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'dataPosts' => $dataPosts,
+        ]);
 
     }
 
@@ -51,29 +51,31 @@ class PostController extends Controller
     {
         //get post cars from request
         $client = new Client();
-        $response = $client->post('https://app.dev.aws.dinggo.com.au/phptest/cars',
-        [
-            'json'=>[
-                'username'=>"joseplorenzini@gmail.com",
-                "key" => 'joseplorenzini' ,
+        $response = $client->post(
+            config('services.dinggo.url'),
+            [
+                'json' => [
+                    'username' => config('services.dinggo.username'),
+                    "key" => config('services.dinggo.key'),
+                ]
             ]
-        ]);
+        );
 
         if (!$response->getStatusCode() == 200) {
-                return response()->json([
-                    'success' => false,
-                    'message' => 'API request failed'
-                ]);
-            }
+            return response()->json([
+                'success' => false,
+                'message' => 'API request failed'
+            ]);
+        }
 
-                $data = json_decode($response->getBody()->getContents(), true);
-                // dd($data);
-                return Inertia::render("Cars",[
-                    'cars' => $data
-                ]);
+        $data = json_decode($response->getBody()->getContents(), true);
+        // dd($data);
+        return Inertia::render("Cars", [
+            'cars' => $data
+        ]);
 
-          //      return response()->json($data); // for testing
-         }
+        //      return response()->json($data); // for testing
+    }
 
     /**
      * Display the specified resource.

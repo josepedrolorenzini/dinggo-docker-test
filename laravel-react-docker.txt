@@ -129,3 +129,15 @@ https://inertiajs.com/#
     docker exec -it <container_name> php artisan make:model Cars
 
     or inside the container onlye run php artisan make:model Cars
+
+    docker exec -it laravel_app php artisan make:migration
+
+ ┌ What should the migration be named? ─────────────────────────┐
+ │ create_cars_table                                            │
+ └──────────────────────────────────────────────────────────────┘
+
+   INFO  Migration [database/migrations/2026_02_20_203948_create_cars_table.php] created successfully.  
+
+
+   docker exec -it laravel_app php artisan migrate
+   docker exec -it laravel_app php artisan migrate:fresh --seed 
