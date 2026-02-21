@@ -10,13 +10,13 @@ const containerStylo = {
     color: '#000',
 
     // Media queries for finer control
-    '@media (max-width: 768px)': {
+    '@media (maxWidth: 768px)': {
         gridTemplateColumns: '1fr',
     },
-    '@media (min-width: 769px) and (max-width: 1024px)': {
+    '@media (minWidth: 769px) and (maxWidth: 1024px)': {
         gridTemplateColumns: 'repeat(2, 1fr)',
     },
-    '@media (min-width: 1025px)': {
+    '@media (minWidth: 1025px)': {
         gridTemplateColumns: 'repeat(3, 1fr)',
     },
 };

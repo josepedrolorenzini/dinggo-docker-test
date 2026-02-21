@@ -24,7 +24,8 @@ class PostController extends Controller
         //// fetching joseplorenzini.com/api/posts
         $client = new Client();
         // $response = $client->get('http://joseplorenzini.com/api/posts');
-        $response = $client->get('https://app.dev.aws.dinggo.com.au/phptest/test');
+        // $response = $client->get('https://app.dev.aws.dinggo.com.au/phptest/test');
+        $response = $client->get(config('services.dinggo.base_url') . '/test');
         $posts = json_decode($response->getBody(), true);
         $dataPosts = response()->json($posts);
 
@@ -46,7 +47,8 @@ class PostController extends Controller
         //only post cars data to the database without rendering the view
         $client = new Client();
         // Make a POST request to the Dinggo API with the required credentials
-        $response = $client->post(config('services.dinggo.url'), [
+
+        $response = $client->post(config('services.dinggo.base_url') . '/' . config('services.dinggo.cars_endpoint'), [
             'json' => [
                 'username' => config('services.dinggo.username'),
                 "key" => config('services.dinggo.key'),
@@ -103,7 +105,7 @@ class PostController extends Controller
 
         // Make a POST request to the Dinggo API with the required credentials
         $response = $client->post(
-            config('services.dinggo.url'),
+            config('services.dinggo.base_url') . '/' . config('services.dinggo.cars_endpoint'),
             [
                 'json' => [
                     'username' => config('services.dinggo.username'),
@@ -146,7 +148,8 @@ class PostController extends Controller
             );
         }
 
-        //  dd($cars);
+        ////  dd($cars);
+
         // redirect to dinggo jsx
         return redirect()->route('cars.show');
 
@@ -154,8 +157,7 @@ class PostController extends Controller
         return Inertia::render("Cars", [
            'cars' => $data
        ]);
-
-       //      return response()->json($data); // for testing
+       // return response()->json($data); // for testing
        */
     }
 
