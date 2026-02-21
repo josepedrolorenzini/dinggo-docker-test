@@ -3,32 +3,19 @@ import React from 'react';
 
 const containerStylo = {
     display: 'grid',
-    // Mobile: 1 column, Tablet: 2 columns, Desktop: 3-4 columns
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', // Auto-responsive
     gap: '15px',
     padding: '20px',
     color: '#000',
-
-    // Media queries for finer control
-    '@media (maxWidth: 768px)': {
-        gridTemplateColumns: '1fr',
-    },
-    '@media (minWidth: 769px) and (maxWidth: 1024px)': {
-        gridTemplateColumns: 'repeat(2, 1fr)',
-    },
-    '@media (minWidth: 1025px)': {
-        gridTemplateColumns: 'repeat(3, 1fr)',
-    },
 };
+
 const boxStylo = {
     border: '1px solid #ccc',
     padding: '15px',
     borderRadius: '8px',
     backgroundColor: '#f9f9f9',
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-    display: 'flex',
-    flexDirection: 'column',
-    color: '#000 !important',
+    color: '#000',
 };
 
 function DinggoCars({ cars }) {
@@ -36,21 +23,51 @@ function DinggoCars({ cars }) {
         <>
             <Head title="Dinggo Cars" />
             <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-                <h1>Dinggo Cars</h1>
-                {/* grid container */}
+                <h1 style={{ textAlign: 'center', margin: '20px 0' }}>Dinggo Cars</h1>
                 <div style={containerStylo}>
-                    <ul
-                        className='list-disc list-inside'>
-                        {cars && cars.map(car => (
-                            <div
-                                style={boxStylo}
-                                key={car.vin}
-                            >
-                                <li key={car.vin}>{car.make} {car.model}</li>
-                            </div>
+                    {cars && cars.map(car => (
+                        <div style={boxStylo} key={car.vin}>
+                            <h3 style={{ margin: '0 0 10px 0', color: '#333' }}>
+                                {car.make} {car.model}
+                            </h3>
 
-                        ))}
-                    </ul>
+                            {car.year && (
+                                <p style={{ margin: '5px 0', color: '#666' }}>
+                                    Year: {car.year}
+                                </p>
+                            )}
+
+                            {car.colour && (
+                                <p style={{ margin: '5px 0', color: '#666' }}>
+                                    Color: {car.colour}
+                                </p>
+                            )}
+
+                            {car.license_plate && (
+                                <p style={{ margin: '5px 0', color: '#666' }}>
+                                    Plate: {car.license_plate}
+                                </p>
+                            )}
+
+                            {car.license_state && (
+                                <p style={{ margin: '5px 0', color: '#666' }}>
+                                    State: {car.license_state}
+                                </p>
+                            )}
+
+                            <p style={{
+                                margin: '5px 0',
+                                fontSize: '12px',
+                                color: '#999',
+                                fontFamily: 'monospace',
+                                backgroundColor: '#eee',
+                                padding: '4px',
+                                borderRadius: '4px'
+                            }}>
+                                VIN: {car.vin}
+                            </p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </>
