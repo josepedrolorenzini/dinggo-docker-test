@@ -13,6 +13,10 @@ Route::get("/", [PostController::class, "index"])->name("home");
 Route::get("/cars", [PostController::class, "storeCars"])->name("cars.index");
 Route::post("/postscars", [PostController::class, "postCars"])->name("cars.store");
 Route::get("/showcars", [PostController::class, "showCars"])->name("cars.show");
+Route::get("/getquotes/cars/{vin}", [PostController::class, "getQuotes"])->name("cars.getQuotes");
+Route::post("/postquotes", [PostController::class, "postQuotes"])->name("cars.postQuotes");
+
+
 
 
 Route::get('/dashboard', function () {

@@ -150,3 +150,38 @@ https://inertiajs.com/#
 php artisan config:clear -  docker compose exec app php artisan config:clear 
 >> php artisan cache:clear - docker-compose exec app php artisan cache:clear
 >> php artisan view:clear - docker-compose exec app php artisan view:clear 
+
+
+
+curl  https://app.dev.aws.dinggo.com.au/phptest/quotes
+
+
+curl -X POST "https://app.dev.aws.dinggo.com.au/phptest/quotes" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "Username": "joseplorenzini@gmail.com",
+           "Key": "User",
+           "licensePlate":"QWE12E",
+           "licenseState":"NSW","vin"
+         }'
+
+
+
+
+curl -X POST https://app.dev.aws.dinggo.com.au/phptest/quotes \
+    -H "Content-Type: application/json" \
+    -d '{
+          "username":"joseplorenzini@gmail.com",
+          "key":"joseplorenzini",
+          "licensePlate":"QWE12E",
+          "licenseState":"NSW",
+          "vin":"123456789"
+        }'
+
+
+curl -X POST "https://app.dev.aws.dinggo.com.au/phptest/quotes" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "username":"joseplorenzini@gmail.com",
+            "key":"joseplorenzini",
+         }'

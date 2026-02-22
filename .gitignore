@@ -8,4 +8,5 @@ docker-compose.test.yml
 **Step 2 — Remove the broken lines from your `backend/.gitignore`** since they don't work:
 ```
 ./docker-compose.yml
-../laravel-react-docker.txt
+./laravel-react-docker.txt
+laravel-react-docker.txt

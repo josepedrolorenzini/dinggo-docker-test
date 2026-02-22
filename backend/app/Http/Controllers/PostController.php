@@ -178,15 +178,19 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function getQuotes($vin)
     {
-        //
+        //curl ; // curl;
+        $client = new Client();
+        dd($vin);
+
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Post $post)
+    public function postQuotes(Request $request, Post $post)
     {
         //
     }

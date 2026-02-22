@@ -128,6 +128,13 @@ function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
                                     }}>
                                         VIN: {car.vin}
                                     </p>
+
+                                    <Link
+                                        href={`/getquotes/cars/${car.vin}`}
+                                        className="text-blue-500 hover:underline"
+                                    >
+                                        click me
+                                    </Link>
                                 </div>
                             ))}
                         </div>
