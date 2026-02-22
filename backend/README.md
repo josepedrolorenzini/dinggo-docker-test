@@ -6,6 +6,9 @@ A complete Laravel application with Docker setup.
 
 - Docker
 - Docker Compose
+- NPM and Composer
+- PHP
+
 
 ## Quick Start
 
@@ -55,6 +58,9 @@ SELECT * FROM pg_stat_activity;
 
 # php artisan create models cars & quotes
 # get data from cars & quotes and keep it in the postgres db
+
+ # migrate database
+  docker-compose exec app php artisan migrate:fresh --seeder
 
 
 
