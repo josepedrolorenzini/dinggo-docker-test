@@ -182,7 +182,20 @@ class PostController extends Controller
     {
         //curl ; // curl;
         $client = new Client();
-        dd($vin);
+        $response = $client->post(config('services.dinggo.base_url') . '/' . config('services.dinggo.quotes_endpoint'), [
+            'json' => [
+                'username' => config('services.dinggo.username'),
+                "key" => config('services.dinggo.key'),
+                "licensePlate" => "QWE12E",
+                "licenseState" => "NSW"
+            ]
+        ]);
+
+        // Check if the response is successful
+        if ($response->getStatusCode() !== 200) {
+            dd("API request failed with status code: " . $response->getStatusCode());
+        }
+        dd($vin, $response->getBody()->getContents());
 
 
     }
