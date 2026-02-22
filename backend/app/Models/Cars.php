@@ -15,8 +15,8 @@ class Cars extends Model
 
     protected $fillable = [
         'colour',
-        'license_plate',
-        'license_state',
+        'licensePlate',
+        'licenseState',
         'make',
         'model',
         'vin',

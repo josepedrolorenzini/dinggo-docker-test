@@ -4,7 +4,7 @@ import NavBarFront from '../Components/NavBarFront';
 
 export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts }) {
 
-    const [data, setData] = useState('');
+    const [data, setData] = useState(dataPosts);
 
 
     useEffect(() => {
@@ -14,14 +14,14 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
                 if (dataPosts && dataPosts.original) {
                     setData(dataPosts.original);
                 }
-                console.log(data);
+
             } catch (error) {
                 console.log(error);
             }
         };
 
         fetchPosts();
-
+        console.log(data);
     }, [dataPosts]);
 
 
@@ -71,7 +71,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
 
                             </div>
 
-
+                            <form method="POST" action="{{ route('cars.store') }}">
+                                @csrf
+                                <button type="submit">Sync Cars From Dinggo</button>
+                            </form>
 
 
                         </main>

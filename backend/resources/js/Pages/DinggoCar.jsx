@@ -22,7 +22,7 @@ const boxStylo = {
     color: '#000',
 };
 
-function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
+function DinggoCar({  }) {
 
     const [carsData, setCarsData] = useState(cars);
     useEffect(() => {
@@ -120,4 +120,4 @@ function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
     )
 }
 
-export default DinggoCars
+export default DinggoCar

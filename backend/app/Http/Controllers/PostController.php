@@ -79,8 +79,8 @@ class PostController extends Controller
                 ['vin' => $carData['vin']],
                 [
                     'colour' => $carData['colour'] ?? null,
-                    'license_plate' => $carData['license_plate'] ?? null,
-                    'license_state' => $carData['license_state'] ?? null,
+                    'licensePlate' => $carData['licensePlate'] ?? null,
+                    'licenseState' => $carData['licenseState'] ?? null,
                     'make' => $carData['make'] ?? null,
                     'model' => $carData['model'] ?? null,
                     'year' => $carData['year'] ?? null
@@ -139,8 +139,8 @@ class PostController extends Controller
                 ['vin' => $carData['vin']],
                 [
                     'colour' => $carData['colour'] ?? null,
-                    'license_plate' => $carData['license_plate'] ?? null,
-                    'license_state' => $carData['license_state'] ?? null,
+                    'licensePlate' => $carData['licensePlate'] ?? null,
+                    'licenseState' => $carData['licenseState'] ?? null,
                     'make' => $carData['make'] ?? null,
                     'model' => $carData['model'] ?? null,
                     'year' => $carData['year'] ?? null
@@ -195,7 +195,16 @@ class PostController extends Controller
         if ($response->getStatusCode() !== 200) {
             dd("API request failed with status code: " . $response->getStatusCode());
         }
-        dd($vin, $response->getBody()->getContents());
+
+        //  dd($vin, $response->getBody()->getContents());
+        $data = $response->getBody()->getContents();
+
+        Cars::findOrFail($vin);
+        return response()->json([
+            'success' => true,
+            'message' => "Quotes retrieved successfully for VIN number $vin",
+            'quotes' => json_decode($data, true)
+        ]);
 
 
     }
