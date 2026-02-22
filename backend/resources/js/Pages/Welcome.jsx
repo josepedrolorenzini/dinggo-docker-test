@@ -1,10 +1,11 @@
-import { Head, Link, router } from '@inertiajs/react';
+import { Form, Head, Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import NavBarFront from '../Components/NavBarFront';
 
 export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts }) {
 
     const [data, setData] = useState(dataPosts);
+    const [syncing, setSyncing] = useState(false);
 
 
     useEffect(() => {
@@ -27,10 +28,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
 
     const handleSync = async (e) => {
         e.preventDefault();
+        setSyncing(true);
         try {
-            router.post('/cars/sync');
+            await router.post('/cars/sync');
         } catch (error) {
             console.log(error);
+        } finally {
+            setSyncing(false);
         }
     };
 
@@ -63,15 +67,17 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
                             <div className="grid gap-6 lg:grid-cols-2 lg:gap-8">
                                 DingGo Senior Dev PHP Tasks
                                 <p> data received: {data.success} </p>
-                                {setTimeout(() => {
-                                    console.log(data);
-                                }, 1000)}
+                                <p> data message: {data.message} </p>
 
                             </div>
 
-                            <form method="POST" action="{{ route('cars.sync') }}">
-                                <button onClick={handleSync}>
-                                    Sync Cars
+                            <form onSubmit={handleSync}>
+                                <button
+                                    type="submit"
+                                    disabled={syncing}
+                                    className="mt-4 rounded bg-[#FF2D20] px-4 py-2 font-semibold text-white hover:bg-[#FF1A0F]"
+                                >
+                                    {syncing ? 'Syncing...' : 'Sync Cars'}
                                 </button>
                             </form>
 
