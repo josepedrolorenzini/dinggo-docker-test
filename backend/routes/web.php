@@ -11,9 +11,9 @@ use Inertia\Inertia;
 
 Route::get("/", [PostController::class, "index"])->name("home");
 Route::get("/cars", [PostController::class, "storeCars"])->name("cars.index");
-Route::post("/postscars", [PostController::class, "postCars"])->name("cars.store");
-Route::get("/showcars", [PostController::class, "showCars"])->name("cars.show");
-Route::get("/getquotes/cars/{vin}", [PostController::class, "getQuotes"])->name("cars.getQuotes");
+Route::post("/cars/sync", [PostController::class, "postCars"])->name("cars.sync");
+Route::get("/cars/show", [PostController::class, "showCars"])->name("cars.show");
+Route::get("/cars/{vin}/quotes", [PostController::class, "getQuotes"])->name("cars.quotes");
 Route::post("/postquotes", [PostController::class, "postQuotes"])->name("cars.postQuotes");
 
 

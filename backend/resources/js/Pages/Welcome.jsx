@@ -1,4 +1,4 @@
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import NavBarFront from '../Components/NavBarFront';
 
@@ -25,15 +25,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
     }, [dataPosts]);
 
 
-    const handleImageError = () => {
-        document
-            .getElementById('screenshot-container')
-            ?.classList.add('!hidden');
-        document.getElementById('docs-card')?.classList.add('!row-span-1');
-        document
-            .getElementById('docs-card-content')
-            ?.classList.add('!flex-row');
-        document.getElementById('background')?.classList.add('!hidden');
+    const handleSync = async (e) => {
+        e.preventDefault();
+        try {
+            router.post('/cars/sync');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return (
@@ -71,9 +69,10 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
 
                             </div>
 
-                            <form method="POST" action="{{ route('cars.store') }}">
-                                @csrf
-                                <button type="submit">Sync Cars From Dinggo</button>
+                            <form method="POST" action="{{ route('cars.sync') }}">
+                                <button onClick={handleSync}>
+                                    Sync Cars
+                                </button>
                             </form>
 
 
