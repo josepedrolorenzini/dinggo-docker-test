@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 
 const containerStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))',
     gap: '15px',
-    padding: '20px',
-    color: '#000',
+    padding: '2px',
+    color: 'inherit',
     width: '100%',
 };
 
@@ -69,7 +69,8 @@ function DinggoCarQuotes({ auth, car, quotes, message, success }) {
                                 {carData && (
                                     <>
 
-                                        <h3>{carData.make} {carData.model} ({carData.year})</h3>
+                                        <h3
+                                            className='text-red-800 font-bold'>{carData.make} {carData.model} ({carData.year})</h3>
                                         <ul style={{ margin: 0, padding: 0 }}>
                                             {quotesData?.quotes?.length > 0 ? (
                                                 quotesData.quotes.map((quote, i) => (

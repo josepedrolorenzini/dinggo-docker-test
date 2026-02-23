@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cars;
 use App\Models\Post;
+use App\Models\Quote;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Http;
@@ -180,8 +181,10 @@ class PostController extends Controller
      */
     public function getQuotes($licensePlate, $licenseState)
     {
-        //curl ; // curl;
+        //client instance
         $client = new Client();
+
+        // Make a POST request to the Dinggo API with the required credentials and license plate and state
         $response = $client->post(config('services.dinggo.base_url') . '/' . config('services.dinggo.quotes_endpoint'), [
             'json' => [
                 'username' => config('services.dinggo.username'),
@@ -208,11 +211,27 @@ class PostController extends Controller
 
         //dd($car, $data);
 
+        // ✅ Insert each quote into the database using Eloquent
+        if (!empty($data['quotes'])) {
+            foreach ($data['quotes'] as $q) {
+                // Avoid duplicates if needed
+                Quote::updateOrCreate(
+                    [
+                        'car_id' => $car->id,
+                        'overview_of_work' => $q['overviewOfWork'],
+                    ],
+                    [
+                        'price' => $q['price'],
+                        'repairer' => $q['repairer'],
+                    ]
+                );
+            }
+        }
         return Inertia::render("DinggoCarQuotes", [
             'success' => true,
             'message' => "Quotes retrieved successfully for license plate $licensePlate in state $licenseState",
-            'quotes' => $data,
-            'car' => $car
+            'quotes' => $data ?? [],
+            'car' => $car ?? []
         ]);
 
 
