@@ -13,9 +13,9 @@ return new class extends Migration {
                 ->constrained('cars') // References cars.id
                 ->onDelete('cascade'); // If car deleted → delete quotes
 
-            $table->string('overview_of_work');
-            $table->decimal('price', 10, 2);
-            $table->string('repairer');
+            $table->string('overview_of_work', 256)->nullable();
+            $table->decimal('price', 10, 2)->nullable();
+            $table->string('repairer')->nullable();
 
             $table->timestamps();
         });

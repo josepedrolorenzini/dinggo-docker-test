@@ -10,7 +10,7 @@ class Quote extends Model
     protected $table = 'quotes';
     protected $fillable = [
         'car_id',
-        'overviewOfWork',
+        'overview_of_work',
         'price',
         'repairer'
     ];
