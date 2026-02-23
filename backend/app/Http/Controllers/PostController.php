@@ -23,9 +23,13 @@ class PostController extends Controller
     public function index()
     {
         //// fetching joseplorenzini.com/api/posts
+
+        // instance of guzzle client
         $client = new Client();
         // $response = $client->get('http://joseplorenzini.com/api/posts');
         // $response = $client->get('https://app.dev.aws.dinggo.com.au/phptest/test');
+
+        // Make a GET request to the Dinggo API with the required credentials
         $response = $client->get(config('services.dinggo.base_url') . '/test');
         $posts = json_decode($response->getBody(), true);
         $dataPosts = response()->json($posts);
@@ -47,8 +51,8 @@ class PostController extends Controller
     {
         //only post cars data to the database without rendering the view
         $client = new Client();
-        // Make a POST request to the Dinggo API with the required credentials
 
+        // Make a POST request to the Dinggo API with the required credentials
         $response = $client->post(config('services.dinggo.base_url') . '/' . config('services.dinggo.cars_endpoint'), [
             'json' => [
                 'username' => config('services.dinggo.username'),

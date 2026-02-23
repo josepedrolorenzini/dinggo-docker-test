@@ -1,4 +1,14 @@
-Laravel + React (Inertia.js) + postgres  Dinggo Integration
+# Laravel  PHP + React JS (Inertia.js) + Postgresql  -> Dinggo API Application using Docker.com
+
+Stack :
+https://docs.guzzlephp.org/en/stable/quickstart.html
+https://laravel.com/docs/12.x/eloquent
+https://inertiajs.com/ 
+https://packagist.org/packages/laravel/breeze
+https://react.dev/
+https://tailwindcss.com/
+https://www.docker.com/
+
 
 This project is a Laravel 10 + Inertia.js (React) application that integrates with the Dinggo API to fetch and store car quotes. It uses PostgreSQL as the database and Docker for development.
 

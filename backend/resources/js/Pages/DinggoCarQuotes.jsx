@@ -1,4 +1,4 @@
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import NavBarFront from '../Components/NavBarFront';
 import { useEffect, useState } from 'react';
 
