@@ -25,6 +25,6 @@ Thumbs.db
 docker-compose.override.yml
 docker-compose.prod.yml
 docker-compose.test.yml
-../docker-compose.yml
+
 ../laravel-react-docker.txt
 
