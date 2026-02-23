@@ -178,7 +178,7 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function getQuotes($vin)
+    public function getQuotes($licensePlate, $licenseState)
     {
         //curl ; // curl;
         $client = new Client();
@@ -186,24 +186,33 @@ class PostController extends Controller
             'json' => [
                 'username' => config('services.dinggo.username'),
                 "key" => config('services.dinggo.key'),
-                "licensePlate" => "QWE12E",
-                "licenseState" => "NSW"
+                "licensePlate" => $licensePlate,
+                "licenseState" => $licenseState
             ]
         ]);
 
         // Check if the response is successful
         if ($response->getStatusCode() !== 200) {
-            dd("API request failed with status code: " . $response->getStatusCode());
+            return response()->json([
+                'success' => false,
+                'message' => "API request failed with status code " . $response->getStatusCode()
+            ], 500);
         }
 
         //  dd($vin, $response->getBody()->getContents());
-        $data = $response->getBody()->getContents();
+        $data = json_decode($response->getBody()->getContents(), true);
 
-        Cars::findOrFail($vin);
-        return response()->json([
+        $car = Cars::where('licensePlate', $licensePlate)
+            ->where('licenseState', $licenseState)
+            ->firstOrFail();
+
+        //dd($car, $data);
+
+        return Inertia::render("DinggoCarQuotes", [
             'success' => true,
-            'message' => "Quotes retrieved successfully for VIN number $vin",
-            'quotes' => json_decode($data, true)
+            'message' => "Quotes retrieved successfully for license plate $licensePlate in state $licenseState",
+            'quotes' => $data,
+            'car' => $car
         ]);
 
 

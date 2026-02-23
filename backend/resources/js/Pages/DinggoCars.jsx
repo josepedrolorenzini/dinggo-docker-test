@@ -25,6 +25,7 @@ const boxStylo = {
 function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
 
     const [carsData, setCarsData] = useState(cars);
+
     useEffect(() => {
         if (cars && cars.length > 0) {
             setCarsData(cars);
@@ -79,15 +80,15 @@ function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
                                         </p>
                                     )}
 
-                                    {car.license_plate && (
+                                    {car.licensePlate && (
                                         <p style={{ margin: '5px 0', color: '#666' }}>
-                                            Plate: {car.license_plate}
+                                            Plate: {car.licensePlate}
                                         </p>
                                     )}
 
-                                    {car.license_state && (
+                                    {car.licenseState && (
                                         <p style={{ margin: '5px 0', color: '#666' }}>
-                                            State: {car.license_state}
+                                            State: {car.licenseState}
                                         </p>
                                     )}
 
@@ -104,7 +105,7 @@ function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
                                     </p>
 
                                     <Link
-                                        href={`/getquotes/cars/${car.vin}`}
+                                        href={`/cars/${car.licensePlate}/${car.licenseState}/quotes`}
                                         className="text-blue-500 hover:underline"
                                     >
                                         click me
