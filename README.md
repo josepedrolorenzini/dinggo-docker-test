@@ -77,7 +77,7 @@ Installation:
    docker compose down 
 
 ---
-Keygenerate
+Keygenerate after installation.
 docker compose exec app php artisan key:generate
 
 ---
@@ -105,6 +105,38 @@ docker compose exec app php artisan migrate:fresh --seed
 
 
 
+
+Notes / Best Practices:
+- Always use foreign keys (car_id) to relate cars and quotes.
+- updateOrCreate avoids duplicate quotes.
+- Use snake_case in database fields: overview_of_work, car_id.
+- API credentials should never be hardcoded—use .env.
+- If Dinggo API returns null, make columns nullable or provide defaults.
+
+---
+
+# Commands Quick Reference:
+   php artisan migrate:fresh --seed
+   composer install
+   npm install
+   npm run dev
+   docker compose up -d
+   php artisan tinker
+
+
+#   clean cache :
+   docker compose exec app php artisan cache:clear    
+   docker compose exec app php artisan view:clear    
+   docker compose exec app php artisan config:clear 
+   docker compose restart
+
+
+
+
+
+
+
+  
 .env file:
 .env()
 i adding extra security layer in http/config/services file :
@@ -178,31 +210,6 @@ Frontend (Inertia.js):
    ))}
 
 ---
-
-Notes / Best Practices:
-- Always use foreign keys (car_id) to relate cars and quotes.
-- updateOrCreate avoids duplicate quotes.
-- Use snake_case in database fields: overview_of_work, car_id.
-- API credentials should never be hardcoded—use .env.
-- If Dinggo API returns null, make columns nullable or provide defaults.
-
----
-
-# Commands Quick Reference:
-   php artisan migrate:fresh --seed
-   composer install
-   npm install
-   npm run dev
-   docker compose up -d
-   php artisan tinker
-
-
-#   clean cache :
-   docker compose exec app php artisan cache:clear    
-   docker compose exec app php artisan view:clear    
-   docker compose exec app php artisan config:clear 
-   docker compose restart
-
 
 
   please contact me if you have any issues: josephlorenzini81@gmail.com  
