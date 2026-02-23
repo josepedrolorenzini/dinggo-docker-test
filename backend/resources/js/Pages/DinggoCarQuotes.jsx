@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react';
 
 const containerStyle = {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(480px, 1fr))',
     gap: '15px',
-    padding: '20px',
-    color: '#000',
+    padding: '2px',
+    color: 'inherit',
     width: '100%',
 };
 
