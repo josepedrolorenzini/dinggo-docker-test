@@ -2,7 +2,10 @@ import { Form, Head, Link, router } from '@inertiajs/react';
 import { useEffect, useState } from 'react';
 import NavBarFront from '../Components/NavBarFront';
 
+const buttonStyle = "mt-4 rounded bg-[#FF2D20] px-4 py-2 font-semibold text-white hover:bg-[#FF1A0F]";
+
 export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts }) {
+
 
     const [data, setData] = useState(dataPosts);
     const [syncing, setSyncing] = useState(false);
@@ -78,7 +81,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion, dataPosts })
                                 <button
                                     type="submit"
                                     disabled={syncing}
-                                    className="mt-4 rounded bg-[#FF2D20] px-4 py-2 font-semibold text-white hover:bg-[#FF1A0F]"
+                                    className={buttonStyle}
                                 >
                                     {syncing ? 'Syncing...' : 'Sync Cars'}
                                 </button>

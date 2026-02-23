@@ -21,6 +21,7 @@ const boxStylo = {
     boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
     color: '#000',
 };
+const buttonStyle = "mt-4 rounded bg-[#FF2D20] px-4 py-2 font-semibold text-white hover:bg-[#FF1A0F]";
 
 function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
 
@@ -109,7 +110,7 @@ function DinggoCars({ auth, laravelVersion, phpVersion, cars }) {
 
                                     <Link
                                         href={`/cars/${car.licensePlate}/${car.licenseState}/quotes`}
-                                        className="text-blue-500 hover:underline"
+                                        className={buttonStyle}
                                     >
                                         click me
                                     </Link>
