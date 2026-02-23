@@ -62,7 +62,10 @@ SELECT * FROM pg_stat_activity;
  # migrate database
   docker-compose exec app php artisan migrate:fresh --seeder
 
-
+got to http://localhost:8000/
+click button sync cars
+then u will be redirect to cars/show , cars should be there if not please refresh browser
+then select the car u want to quote
 
 
 
