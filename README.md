@@ -5,29 +5,45 @@ This project is a Laravel 10 + Inertia.js (React) application that integrates wi
 ---
 
 Project Structure:
-- app/Models
-  - Car.php → Stores car information.
+# - app/Models(laravel eloquent PHP)
+  - Car.php → Stores car Schema fields  and protected table.
   - Quote.php → Stores quotes related to cars.
-- app/Http/Controllers
+# - app/Http/Controllers(laravel eloquent PHP)
   - PostController.php → Handles API calls to Dinggo and saves quotes.
-- resources/js/Pages
-  - DinggoCarQuotes.jsx → Displays car selected quotes in the frontend using Inertia.js.
-- database/migrations
-  - create_cars_table.php → Creates cars table.
-  - create_quotes_table.php → Creates quotes table with foreign key car_id.
-- .env → Stores Dinggo credentials and database connection.
+# - resources/js/Pages (React)
+  - Welcome.jsx   my dinggo home page , please click the button sync cars you will be automatic redirect to show/cars
+  - DinggoCars.jsx fetch all the cars , you must select one and then will display the quotes for the selected car.
+  - DinggoCarQuotes.jsx → Displays quotes fo the car selected quotes in the frontend using Inertia.js.
+# - database/migrations
+  - create_cars_table.php → Creates cars table (schema).
+  - create_quotes_table.php → Creates quotes table with foreign key car_id(schema).
+  - .env → Stores Dinggo credentials and database connection. (email to dev )
+
+# database 
+
+# migrations:
+  create_cars_table.php
+  create_quotes_table.php
+# seeders:
+  CarSeeder.php
+  QuoteSeeder.php
+
+
 
 ---
 
 Installation:
 1. Clone the repository:
-   git clone <repo-url>
-   cd project-folder
+   git clone  https://github.com/josepedrolorenzini/dinggo-docker-test.git
 
-2. Copy .env.example to .env:
+2. Navigate to the project folder:
+   cd Dinggo
+   cd /backend
+
+3. Copy .env.example to .env:
    cp .env.example .env
 
-3. Set your environment variables:
+4. Set your environment variables:
    DB_CONNECTION=pgsql
    DB_HOST=127.0.0.1
    DB_PORT=5432
@@ -41,12 +57,12 @@ Installation:
    DINGGO_API_USERNAME=your_email@example.com
    DINGGO_API_KEY=your_api_key
 
-4. Install dependencies:
+5. Install dependencies:
    composer install
    npm install
    npm run dev
 
-5. Run Docker (if using Docker Compose):
+6. Run Docker (if using Docker Compose):
    docker compose up -d
    docker compose down 
 
@@ -68,9 +84,30 @@ Database Setup:
    \d cars
    \d quotes
 
----
 
-Adding Cars:
+
+after installation run this 
+# Keygenerate
+docker compose exec app php artisan key:generate
+# this will refresh database and seed data / database/migrations database/seed
+docker compose exec app php artisan migrate:fresh --seed
+
+
+
+
+.env file:
+.env()
+i adding extra security layer in http/config/services file :
+
+    'dinggo' => [
+        'base_url' => env('DINGGO_API_URL'),
+        'cars_endpoint' => env('DINGGO_API_CARS_ENDPOINT'),
+        'quotes_endpoint' => env('DINGGO_API_QUOTES_ENDPOINT'),
+        'username' => env('DINGGO_API_USERNAME'),
+        'key' => env('DINGGO_API_KEY'),
+    ], // Add your Dinggo API credentials
+
+# Adding Cars:
 Use tinker or a seeder:
    php artisan tinker
    >>> Car::create([
@@ -141,7 +178,7 @@ Notes / Best Practices:
 
 ---
 
-Commands Quick Reference:
+# Commands Quick Reference:
    php artisan migrate:fresh --seed
    composer install
    npm install
@@ -150,12 +187,11 @@ Commands Quick Reference:
    php artisan tinker
 
 
-   clean cache :
+#   clean cache :
    docker compose exec app php artisan cache:clear    
    docker compose exec app php artisan view:clear    
    docker compose exec app php artisan config:clear 
-
-  docker compose restart
+   docker compose restart
 
 
 
