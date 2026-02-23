@@ -1,4 +1,4 @@
-Laravel Inertia.js Dinggo Integration
+Laravel + React (Inertia.js) + postgres  Dinggo Integration
 
 This project is a Laravel 10 + Inertia.js (React) application that integrates with the Dinggo API to fetch and store car quotes. It uses PostgreSQL as the database and Docker for development.
 
@@ -9,9 +9,9 @@ Project Structure:
   - Car.php → Stores car information.
   - Quote.php → Stores quotes related to cars.
 - app/Http/Controllers
-  - DinggoController.php → Handles API calls to Dinggo and saves quotes.
+  - PostController.php → Handles API calls to Dinggo and saves quotes.
 - resources/js/Pages
-  - DinggoCarQuotes.jsx → Displays quotes in the frontend using Inertia.js.
+  - DinggoCarQuotes.jsx → Displays car selected quotes in the frontend using Inertia.js.
 - database/migrations
   - create_cars_table.php → Creates cars table.
   - create_quotes_table.php → Creates quotes table with foreign key car_id.
@@ -33,7 +33,7 @@ Installation:
    DB_PORT=5432
    DB_DATABASE=laravel
    DB_USERNAME=postgres
-   DB_PASSWORD=your_password
+   DB_PASSWORD=your_postgres_password
 
    DINGGO_API_URL=https://app.dev.aws.dinggo.com.au/phptest/
    DINGGO_API_CARS_ENDPOINT=/cars
@@ -48,15 +48,20 @@ Installation:
 
 5. Run Docker (if using Docker Compose):
    docker compose up -d
+   docker compose down 
 
 ---
+Keygenerate
+docker compose exec app php artisan key:generate
 
+---
 Database Setup:
 1. Create the database in PostgreSQL:
    CREATE DATABASE laravel;
 
 2. Run migrations and seeders:
    php artisan migrate:fresh --seed
+   docker compose exec app php artisan migrate:fresh --seed
 
 3. Verify tables:
    psql -U postgres -d laravel
@@ -143,3 +148,15 @@ Commands Quick Reference:
    npm run dev
    docker compose up -d
    php artisan tinker
+
+
+   clean cache :
+   docker compose exec app php artisan cache:clear    
+   docker compose exec app php artisan view:clear    
+   docker compose exec app php artisan config:clear 
+
+  docker compose restart
+
+
+
+  please contact me if you have any issues: josephlorenzini81@gmail.com  
