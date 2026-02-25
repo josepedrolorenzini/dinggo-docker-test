@@ -211,5 +211,7 @@ Frontend (Inertia.js):
 
 ---
 
+docker compose exec postgres pg_dump -U postgres laravel > laravel_dump.sql
+
 
   please contact me if you have any issues: josephlorenzini81@gmail.com  
